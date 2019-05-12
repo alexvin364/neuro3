@@ -9,12 +9,12 @@ def net(x, w):
         n += x[i]*w[i]
     return n
 
-norma = 1
+norma = 5
 eps = 0.001
 x1, x2 = [1, -1], [1, 0]
 t = [-0.1, 0.2, 0.2]
-w1 = [0, 0]
-w2 = [[0, 0], [0, 0], [0, 0]]
+w1 = [0.5, 0.5]
+w2 = [[0.5, 0.5], [0.5, 0.5], [0.5, 0.5]]
 y = [0, 0, 0]
 delta1, delta2 = [0, 0], [0, 0, 0]
 J, M = len(x2), len(y)
@@ -42,18 +42,20 @@ while (err > eps):
             w_delta[j] += delta2[i]*w2[i][j]
     for i in range(J):
         delta1[i] = (1-x2[i]*x2[i])*w_delta[i]/2
-
+        
     for i in range(J):                      # 3 этап
-        w1[i] += norma*x1[i]*delta1[i]
+        w1[i] += norma*x1[i]*delta1[1]
     for i in range(M):
         for j in range(J):
             w2[i][j] += norma*x2[j]*delta2[i]
     print("|", end = " ")
     for i in range(J):
-        print(round(w1[i],2), end = "\t")
-    print("|", end = " ")
+        print(round(w1[i],3), end = "\t")
+    print("|", end = "  ")
     for i in range(M):
         for j in range(J):
-            print(round(w2[i][j],2), end = "\t")
+            print(round(w2[i][j],3), end = "\t")
     err = sqrt(err)
     print(err)
+
+
